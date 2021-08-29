@@ -65,15 +65,15 @@ void	*life(void *arg)
 	pthread_t	t_death;
 
 	ph = (t_ph *)arg;
-	if (pthread_create(&t_death, NULL, &death, ph))
+	if (pthread_create(&t_death, 0, &death, ph))
 	{
 		printf("'\033[0;31m'Error: Pthread create failed\n");
-		return (NULL);
+		return (0);
 	}
 	if (pthread_detach(t_death))
 	{
 		printf("'\033[0;31m'Error: Pthread detach failed\n");
-		return (NULL);
+		return (0);
 	}
 	while (ph->data->status == 0)
 	{
@@ -82,12 +82,12 @@ void	*life(void *arg)
 		ft_usleep(ph->data->t2s);
 		ft_write(ph, "is thinking");
 	}
-	return (NULL);
+	return (0);
 }
 
 static int	create_threads(t_ph *ph, int i)
 {
-	if (pthread_create(&ph[i].t_ph, NULL, &life, &ph[i]))
+	if (pthread_create(&ph[i].t_ph, 0, &life, &ph[i]))
 	{
 		printf("'\033[0;31m'Error: Pthread create failed\n");
 		return (1);
@@ -115,7 +115,7 @@ int	thread_init(t_ph *ph, int i)
 	i = -1;
 	while (++i < ph->data->phils)
 	{
-		if (pthread_join(ph[i].t_ph, NULL))
+		if (pthread_join(ph[i].t_ph, 0))
 		{
 			printf("'\033[0;31m'Error: Pthread detach failed\n");
 			return (1);

@@ -104,7 +104,7 @@ int	main(int argc, char **argv)
 	if (validate_argv(argv) || init_data(&data, argc, argv))
 		return (1);
 	ph = (t_ph *)malloc(sizeof(t_ph) * data.phils);
-	if (ph == NULL)
+	if (ph == 0)
 	{
 		printf("'\033[0;31m'Error: Memmory allocate failed\n");
 		return (1);
